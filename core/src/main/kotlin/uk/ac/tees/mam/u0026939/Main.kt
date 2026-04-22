@@ -30,14 +30,16 @@ class FirstScreen : KtxScreen {
     private lateinit var camera: OrthographicCamera
 
     fun tileIndex(c: Char): Int = when (c) {
-        '#' -> 0  // wall tile
-        '.' -> 1  // floor tile
-        '+' -> 2  // door tile
-        '/' -> 2  // diagonal door
-        '~' -> 4  // water
-        '^' -> 5  // trap
+        '#' -> 3  // wall tile
+        '.' -> 7  // floor tile
+        '+' -> 0  // door tile
+        '/' -> 0  // diagonal door
+        '~' -> 2  // water
+        '^' -> 1  // trap
+        ',' -> 6  // Floor/grass
+        '"' -> 5  // ?
 
-        else -> 1
+        else -> 4
     }
 
     override fun render(delta: Float) {
@@ -55,9 +57,10 @@ class FirstScreen : KtxScreen {
             }
         }
 
-//        dungeon.forEach {
-//            Gdx.app.log("Open Doors", it.concatToString())
-//        }
+       dungeon.forEach {
+        //    Gdx.app.log("Open Doors", it.concatToString())
+           println(it.concatToString())
+       }
 
 //        dungeon = DungeonUtility.openDoors(dungeon)
 //        dungeon.forEach {
@@ -76,11 +79,12 @@ class FirstScreen : KtxScreen {
     override fun show() {
         super.show()
 
-        val rng = RNG(1979)
+        val rng = RNG(654321)
         val generator = DungeonGenerator(19, 25, rng)
-        generator.addDoors(5, true)
+        generator.addDoors(12, true)
         generator.addTraps(3)
-        generator.addWater(10)
+        generator.addGrass(20)
+        // generator.addWater(25)
 
         // generate dungeon (SquidLib)
         dungeon = generator.generate()
@@ -91,7 +95,7 @@ class FirstScreen : KtxScreen {
         tiles = TextureRegion.split(texture, 32, 32)
 
         camera = OrthographicCamera()
-        camera.setToOrtho(false, 800f, 600f) // your window size
+        camera.setToOrtho(false, 800f, 600f) // window size
 
 
     }
