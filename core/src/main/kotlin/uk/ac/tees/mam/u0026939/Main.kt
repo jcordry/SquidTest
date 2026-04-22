@@ -18,12 +18,12 @@ class Main : KtxGame<KtxScreen>() {
     override fun create() {
         KtxAsync.initiate()
 
-        addScreen(FirstScreen())
-        setScreen<FirstScreen>()
+        addScreen(GameScreen())
+        setScreen<GameScreen>()
     }
 }
 
-class FirstScreen : KtxScreen {
+class GameScreen : KtxScreen {
     private lateinit var batch: SpriteBatch
     private lateinit var tiles: Array<Array<TextureRegion>>
     private lateinit var dungeon: Array<CharArray>
@@ -57,10 +57,10 @@ class FirstScreen : KtxScreen {
             }
         }
 
-       dungeon.forEach {
-        //    Gdx.app.log("Open Doors", it.concatToString())
-           println(it.concatToString())
-       }
+       // dungeon.forEach {
+       //  //    Gdx.app.log("Open Doors", it.concatToString())
+       //     println(it.concatToString())
+       // }
 
 //        dungeon = DungeonUtility.openDoors(dungeon)
 //        dungeon.forEach {
@@ -84,7 +84,7 @@ class FirstScreen : KtxScreen {
         generator.addDoors(12, true)
         generator.addTraps(3)
         generator.addGrass(20)
-        // generator.addWater(25)
+        generator.addWater(5)
 
         // generate dungeon (SquidLib)
         dungeon = generator.generate()
@@ -96,7 +96,6 @@ class FirstScreen : KtxScreen {
 
         camera = OrthographicCamera()
         camera.setToOrtho(false, 800f, 600f) // window size
-
 
     }
 }
